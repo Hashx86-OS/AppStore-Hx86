@@ -30,8 +30,8 @@ jobs:
         run: |
           set -euo pipefail
           jq empty catalog.json
-          test -s data/quake/icon.bmp
-          test -s data/quake/banner.bmp
+          test -s data/quake/icon.jpg
+          test -s data/quake/banner.jpg
           test -s Quake.bin
 
       - name: Create release and upload assets
@@ -44,6 +44,6 @@ jobs:
             --title "App Store catalog $GITHUB_REF_NAME" \
             --notes "Hashx86 App Store catalog release. The latest Quake.bin is included for catalog-driven installs." \
             catalog.json \
-            data/quake/icon.bmp \
-            data/quake/banner.bmp \
+            data/quake/icon.jpg \
+            data/quake/banner.jpg \
             Quake.bin

@@ -6,8 +6,8 @@ Hashx86 App Store catalog and release assets.
 
 ```text
 catalog.json                 Catalog consumed by the Hashx86 App Store
-data/quake/icon.bmp           Quake app icon
-data/quake/banner.bmp         Quake app banner
+data/quake/icon.jpg           Quake app icon
+data/quake/banner.jpg         Quake app banner
 .github/workflows/release.yml Publishes the catalog on a version tag
 ```
 
@@ -38,9 +38,9 @@ asset name; it does not contain the release tag or asset IDs.
 
 ## Catalog notes
 
-- `icon` is the built-in icon-font glyph used by the current App Store UI.
-- `iconAsset` and `bannerAsset` are release asset names reserved for the
-  image-capable UI.
+- `icon` is the built-in icon-font fallback.
+- `iconAsset` and `bannerAsset` are JPEG release assets displayed by the App
+  Store through the ImageView GUI widget.
 - The Quake banner/icon are not redistributed by the App Store itself; they are
   catalog artwork. Confirm the rights before publishing externally.
 - Quake shareware game data is installed by `Quake.bin`, not by this catalog.
