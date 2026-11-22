@@ -1,0 +1,49 @@
+name: Publish App Store catalog
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out catalog
+        uses: actions/checkout@v4
+
+      - name: Fetch latest Quake engine
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release download \
+            --repo Hashx86-OS/Quake-Hx86 \
+            --pattern Quake.bin \
+            --dir .
+          test -s Quake.bin
+
+      - name: Validate catalog bundle
+        run: |
+          set -euo pipefail
+          jq empty catalog.json
+          test -s data/quake/icon.bmp
+          test -s data/quake/banner.bmp
+          test -s Quake.bin
+
+      - name: Create release and upload assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "App Store catalog $GITHUB_REF_NAME" \
+            --notes "Hashx86 App Store catalog release. The latest Quake.bin is included for catalog-driven installs." \
+            catalog.json \
+            data/quake/icon.bmp \
+            data/quake/banner.bmp \
+            Quake.bin

@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "catalogVersion": "2026.11.22",
+  "osVersion": "0.1.0",
+  "apps": [
+    {
+      "id": "quake",
+      "name": "Quake",
+      "version": "0.1.0",
+      "description": "WinQuake port for Hashx86. The app installs the shareware episode and runs locally.",
+      "icon": "fa-gamepad",
+      "iconAsset": "icon.bmp",
+      "bannerAsset": "banner.bmp",
+      "category": "Games",
+      "license": "GPL-2.0-or-later",
+      "source": "https://github.com/Hashx86-OS/Quake-Hx86",
+      "minOsVersion": "0.1.0",
+      "asset": "Quake.bin",
+      "binary": "Quake.bin"
+    }
+  ]
+}
