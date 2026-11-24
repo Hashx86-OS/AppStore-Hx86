@@ -15,35 +15,79 @@ jobs:
       - name: Check out catalog
         uses: actions/checkout@v4
 
-      - name: Fetch latest Quake engine
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh release download \
-            --repo Hashx86-OS/Quake-Hx86 \
-            --pattern Quake.bin \
-            --dir .
-          test -s Quake.bin
-
       - name: Validate catalog bundle
         run: |
           set -euo pipefail
           jq empty catalog.json
-          test -s data/quake/icon.jpg
-          test -s data/quake/banner.jpg
-          test -s Quake.bin
+          if ! jq -e 'all(.apps[]; (has("repo") and has("asset")) or has("url"))' catalog.json \
+              >/dev/null; then
+            echo "each app must use repo+asset or url; catalog releases carry no binaries" >&2
+            exit 1
+          fi
 
-      - name: Create release and upload assets
+          # Artwork is JPEG-only and content-addressed by its SHA-256.
+          mapfile -t images < <(find data -type f -name '*.jpg' | sort)
+          if [ ${#images[@]} -eq 0 ]; then
+            echo "no JPEG artwork found under data/" >&2
+            exit 1
+          fi
+          if [ ${#images[@]} -gt 255 ]; then
+            echo "too many JPEG assets: ${#images[@]} (max 255, plus catalog.json)" >&2
+            exit 1
+          fi
+          unexpected="$(find data -type f ! -name '*.jpg' -print -quit)"
+          if [ -n "$unexpected" ]; then
+            echo "only .jpg artwork is allowed under data/ (found $unexpected)" >&2
+            exit 1
+          fi
+
+          declare -A image_names=()
+          for file in "${images[@]}"; do
+            base=${file##*/}
+            expected="$(sha256sum "$file" | cut -d' ' -f1).jpg"
+            if [ "$base" != "$expected" ]; then
+              echo "$file must be named $expected" >&2
+              exit 1
+            fi
+            image_names["$base"]=1
+          done
+
+          while IFS= read -r name; do
+            [ -z "$name" ] && continue
+            case "$name" in
+              *.jpg) ;;
+              *) echo "asset '$name' is not a .jpg" >&2; exit 1 ;;
+            esac
+            if [ -z "${image_names[$name]:-}" ]; then
+              echo "catalog references missing image asset '$name'" >&2
+              exit 1
+            fi
+          done < <(jq -r '.apps[] | (.iconAsset? // empty), (.bannerAsset? // empty)' catalog.json)
+
+      - name: Create release and upload catalog
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+
+          # Replace any existing release for this tag so stale binaries and
+          # BMP artwork cannot survive a tag update. The tag itself is kept.
+          gh release delete "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --yes || true
+
+          # The catalog release carries catalog.json and JPEG artwork only.
+          # Application binaries live in each app repository's own latest release.
+          declare -A seen=()
+          assets=()
+          while IFS= read -r file; do
+            base=${file##*/}
+            if [ -z "${seen[$base]:-}" ]; then
+              seen["$base"]=1
+              assets+=("$file")
+            fi
+          done < <(find data -type f -name '*.jpg' | sort)
+
           gh release create "$GITHUB_REF_NAME" \
             --repo "$GITHUB_REPOSITORY" \
             --title "App Store catalog $GITHUB_REF_NAME" \
-            --notes "Hashx86 App Store catalog release. The latest Quake.bin is included for catalog-driven installs." \
-            catalog.json \
-            data/quake/icon.jpg \
-            data/quake/banner.jpg \
-            Quake.bin
+            --notes "Hashx86 App Store catalog release. Contains catalog.json and JPEG artwork only; app binaries are fetched from each app repository's latest release." \
+            catalog.json "${assets[@]}"
