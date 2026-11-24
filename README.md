@@ -6,7 +6,7 @@ Hashx86 App Store catalog and JPEG artwork release.
 
 ```text
 catalog.json                 Catalog consumed by the Hashx86 App Store
-data/quake/<sha256>.jpg      Quake icon and banner, content-addressed
+data/<sha256>.jpg            App icons and banners, content-addressed
 .github/workflows/release.yml Publishes the catalog on a version tag
 ```
 
@@ -25,7 +25,8 @@ Artwork files are named by their content hash:
 <sha256-of-file>.jpg
 ```
 
-The release workflow rejects any non-`.jpg` file under `data/`, and rejects a
+All artwork lives directly under `data/`; there are no per-app folders. The
+release workflow rejects any non-`.jpg` file under `data/`, and rejects a
 `.jpg` whose filename does not match its SHA-256. This lets a catalog release
 hold artwork for many apps without `icon.jpg`/`banner.jpg` name collisions.
 Only JPEG is supported; PNG and BMP are intentionally not accepted.
@@ -61,6 +62,8 @@ asset name; app binaries are resolved from each app's own repository.
   by the App Store through the ImageView GUI widget.
 - `repo` is the GitHub repository whose latest release supplies the app binary.
   `asset` names the file to pick from that release.
-- The Quake banner/icon are not redistributed by the App Store itself; they are
-  catalog artwork. Confirm the rights before publishing externally.
-- Quake shareware game data is installed by `Quake.bin`, not by this catalog.
+- The Quake and Quake II banners/icons are not redistributed by the App Store
+  itself; they are catalog artwork. Confirm the rights before publishing
+  externally.
+- Quake and Quake II shareware game data are installed by their application
+  binaries, not by this catalog.

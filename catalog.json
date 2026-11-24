@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "catalogVersion": "2026.11.22",
+  "catalogVersion": "2026.11.24",
   "osVersion": "0.1.0",
   "apps": [
     {
@@ -18,6 +18,22 @@
       "minOsVersion": "0.1.0",
       "asset": "Quake.bin",
       "binary": "Quake.bin"
+    },
+    {
+      "id": "quake2",
+      "name": "Quake II",
+      "version": "0.1.0",
+      "description": "Quake II port for Hashx86. The app downloads and installs the shareware demo data.",
+      "icon": "fa-gamepad",
+      "iconAsset": "effc4262d25ce034ccc5b6f1ae43c87171d2f05ec2113d0ec9c574c8190ed1ad.jpg",
+      "bannerAsset": "a9376e69b42df8ceed09aea3839de52b7026a257c813aee90f08d72f9e6d95bb.jpg",
+      "category": "Games",
+      "license": "GPL-2.0-or-later",
+      "source": "https://github.com/Hashx86-OS/Quake2-Hx86",
+      "repo": "https://github.com/Hashx86-OS/Quake2-Hx86",
+      "minOsVersion": "0.1.0",
+      "asset": "Quake2.bin",
+      "binary": "Quake2.bin"
     }
   ]
 }
