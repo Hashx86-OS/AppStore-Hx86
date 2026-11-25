@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "catalogVersion": "2026.11.25",
+  "catalogVersion": "2026.11.26",
   "osVersion": "0.1.0",
   "apps": [
     {
       "id": "quake",
       "name": "Quake",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "WinQuake port for Hashx86. The app installs the shareware episode and runs locally.",
       "icon": "fa-gamepad",
       "iconAsset": "b81bad1b48e19db78e28e3534ab991c423da1cb41e0e24fa3422378cd9128069.jpg",
@@ -38,7 +38,7 @@
     {
       "id": "doom",
       "name": "DOOM",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "description": "DOOM port for Hashx86. The app downloads and installs the original shareware WAD.",
       "icon": "fa-gamepad",
       "iconAsset": "df70091e696392d3718ecf412b38d309e5458cc5ca7f5acfa2145a25ae786cdd.jpg",
