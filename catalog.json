@@ -6,7 +6,7 @@
     {
       "id": "quake",
       "name": "Quake",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "WinQuake port for Hashx86. The app installs the shareware episode and runs locally.",
       "icon": "fa-gamepad",
       "iconAsset": "b81bad1b48e19db78e28e3534ab991c423da1cb41e0e24fa3422378cd9128069.jpg",
@@ -22,7 +22,7 @@
     {
       "id": "quake2",
       "name": "Quake II",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Quake II port for Hashx86. The app downloads and installs the shareware demo data.",
       "icon": "fa-gamepad",
       "iconAsset": "effc4262d25ce034ccc5b6f1ae43c87171d2f05ec2113d0ec9c574c8190ed1ad.jpg",
@@ -38,7 +38,7 @@
     {
       "id": "doom",
       "name": "DOOM",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "description": "DOOM port for Hashx86. The app downloads and installs the original shareware WAD.",
       "icon": "fa-gamepad",
       "iconAsset": "df70091e696392d3718ecf412b38d309e5458cc5ca7f5acfa2145a25ae786cdd.jpg",
