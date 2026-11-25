@@ -62,8 +62,8 @@ asset name; app binaries are resolved from each app's own repository.
   by the App Store through the ImageView GUI widget.
 - `repo` is the GitHub repository whose latest release supplies the app binary.
   `asset` names the file to pick from that release.
-- The Quake and Quake II banners/icons are not redistributed by the App Store
-  itself; they are catalog artwork. Confirm the rights before publishing
+- The Quake, Quake II, and DOOM banners/icons are not redistributed by the App
+  Store itself; they are catalog artwork. Confirm the rights before publishing
   externally.
-- Quake and Quake II shareware game data are installed by their application
-  binaries, not by this catalog.
+- Quake, Quake II, and DOOM shareware game data are installed by their
+  application binaries, not by this catalog.
