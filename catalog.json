@@ -38,7 +38,7 @@
     {
       "id": "doom",
       "name": "DOOM",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "description": "DOOM port for Hashx86. The app downloads and installs the original shareware WAD.",
       "icon": "fa-gamepad",
       "iconAsset": "df70091e696392d3718ecf412b38d309e5458cc5ca7f5acfa2145a25ae786cdd.jpg",
